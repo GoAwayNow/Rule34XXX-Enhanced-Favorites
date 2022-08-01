@@ -1,6 +1,6 @@
 # ![Icon](resources/icon.png) Rule34.XXX Enhanced Favorites
 
-[Install](R34.XXX%20Enhanced%20Favorites.user.js?raw=1)
+[![Install](resources/install.png)](R34.XXX%20Enhanced%20Favorites.user.js?raw=1) [![Support Me on Ko-fi](resources/kofi.png)](https://ko-fi.com/ganbat)
 
 An overhaul of the favorites system used by Rule34.XXX with emphasis on useability.
 
