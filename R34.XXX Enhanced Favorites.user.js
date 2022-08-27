@@ -13,6 +13,7 @@
 // @grant        GM_getValue
 // @grant        GM_xmlhttpRequest
 // @require      http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js
+// @require      https://rule34.xxx/script/application.js
 // @license      Unlicense
 // ==/UserScript==
 
@@ -102,7 +103,7 @@ function CheckIBE(timeout) {
                     console.log('Removed site favorite: ' + id);
                 }
                 remFavList(id);
-                window.eval('notice("Post removed from favorites");')
+                notice("Post removed from favorites");
                 break;
             case 403:
                 alert(`403 Forbidden recieved when attempting to remove favorite.\r\n
@@ -132,7 +133,8 @@ function CheckIBE(timeout) {
         tpDetails.firstElementChild.appendChild(tpFavButton);
         tpFavButton.addEventListener('click', function(){
             addFavList(postID);
-            window.eval(`post_vote('${postID}', 'up'); addFav('${postID}');`)
+            post_vote(postID, 'up');
+            addFav(postID);
             tpFavButton.setAttribute('style', 'display: none;');
             setTimeout(() => {
                 tpPreviewCont.style.boxShadow = '0px 0px 5px 2px gold';
@@ -196,7 +198,8 @@ function CheckIBE(timeout) {
             textFavBtn.innerHTML = 'Add to Favorites';
             textFavBtn.addEventListener('click', function(){
                 addFavList(postID);
-                window.eval(`post_vote('${postID}', 'up'); addFav('${postID}');`)
+                post_vote(postID, 'up');
+                addFav(postID);
                 textFavBtn.setAttribute("style", "display: none;");
                 setTimeout(() => {
                     textRemBtn.setAttribute("style", "display: inline-block;");
