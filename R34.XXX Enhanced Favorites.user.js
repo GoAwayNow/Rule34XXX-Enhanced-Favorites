@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Rule34.XXX Enhanced Favorites
 // @namespace    https://linktr.ee/GanbatGAN
-// @version      20220730051252
+// @version      20220826230706
 // @description  Improves the favorites system on Rule34.XXX.
 // @author       Ganbat
 // @match        https://rule34.xxx/index.php?page=post&s=list&tags=*
