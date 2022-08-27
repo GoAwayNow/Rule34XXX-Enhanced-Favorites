@@ -120,6 +120,7 @@ function CheckIBE(timeout) {
     }
 
     function tpButton(){
+        const tpPreviewCont = document.getElementById('thumbPlusPreviewContainer');
         const tpDetails = document.getElementById('thumbPlusDetailsOptions');
         let postID;
 
@@ -134,6 +135,7 @@ function CheckIBE(timeout) {
             window.eval(`post_vote('${postID}', 'up'); addFav('${postID}');`)
             tpFavButton.setAttribute('style', 'display: none;');
             setTimeout(() => {
+                tpPreviewCont.style.boxShadow = '0px 0px 5px 2px gold';
                 tpRemButton.setAttribute('class', 'thumbPlusDetailsButton show');
             }, 300);
         });
@@ -145,6 +147,7 @@ function CheckIBE(timeout) {
             switch (remFavResult.status) {
                 case 200:
                     tpFavButton.setAttribute('style', 'display: inline-block;');
+                    tpPreviewCont.style.boxShadow = 'none';
                     break;
                 case 403:
                     break;
@@ -161,9 +164,11 @@ function CheckIBE(timeout) {
             if (isFav(postID)) {
                 tpFavButton.setAttribute('style', 'display: none;');
                 tpRemButton.setAttribute('class', 'thumbPlusDetailsButton show');
+                tpPreviewCont.style.boxShadow = '0px 0px 5px 2px gold';
             } else {
                 tpFavButton.setAttribute('style', 'display: inline-block;');
                 tpRemButton.setAttribute('class', 'thumbPlusDetailsButton');
+                tpPreviewCont.style.boxShadow = 'none';
             }
         }
 
