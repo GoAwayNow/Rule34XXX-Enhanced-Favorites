@@ -319,10 +319,18 @@ function CheckIBE(timeout) {
         if (location.href.split('id=')[1].split('&')[0] != userID || !loggedIn) {
             initPostsPage();
         } else {
-            $('.thumb').each(function() {
-                let postID = $(this).children('a').first().attr('id').substring(1);
-                addFavList(postID);
-            });
+            const thumbs = document.querySelectorAll(".thumb");
+            var addedFavs = 0
+            for (var i = 0; i < thumbs.length; i++) {
+                let postID = thumbs[i].querySelector('a:first-of-type').getAttribute('id').substring(1);
+                if ( !isFav ( postID ) ) {
+                    addFavList(postID);
+                    addedFavs++
+                }
+            }
+            if (addedFavs > 0) {
+                notice(`Added ${addedFavs} of ${thumbs.length} favorites`)
+            }
         }
     }
 
