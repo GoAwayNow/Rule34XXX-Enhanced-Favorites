@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Rule34.XXX Enhanced Favorites
 // @namespace    https://linktr.ee/GanbatGAN
-// @version      20220827003010
+// @version      20221013162505
 // @description  Improves the favorites system on Rule34.XXX.
 // @author       Ganbat
 // @match        https://rule34.xxx/index.php?page=post&s=list&tags=*
@@ -17,7 +17,7 @@
 // @license      Unlicense
 // ==/UserScript==
 
-/* globals $ */
+/* globals jQuery */
 
 // Todo:
 // Maybe totally reimplement the addFav function so I can monitor it.
@@ -58,6 +58,7 @@ function CheckIBE(timeout) {
 
 (async () => {
     'use strict';
+    var $ = window.jQuery;
 
     let userID;
     if (document.cookie.search('user_id=') > -1) {
