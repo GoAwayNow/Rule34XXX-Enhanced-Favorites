@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Rule34.XXX Enhanced Favorites
 // @namespace    https://linktr.ee/GanbatGAN
-// @version      20221223221453
+// @version      20221223222316
 // @description  Improves the favorites system on Rule34.XXX.
 // @author       Ganbat
 // @match        https://rule34.xxx/index.php?page=post&s=list&tags=*
@@ -162,11 +162,11 @@ function CheckIBE(timeout) {
             }
         });
 
-        const targetNode = document.getElementById('thumbPlusPreviewLink');
-        const config = { attributeFilter: [ 'href' ] };
+        const thumbNode = document.getElementById('thumbPlusPreviewLink');
+        const thumbObConfig = { attributeFilter: [ 'href' ] };
 
-        const callback = function(mutationsList, observer) {
-            postID = String(targetNode.getAttribute('href')).replace(/index\.php.+id=/, '');
+        const thumbCallback = function(mutationsList, observer) {
+            postID = String(thumbNode.getAttribute('href')).replace(/index\.php.+id=/, '');
             if (isFav(postID)) {
                 tpFavButton.setAttribute('style', 'display: none;');
                 tpRemButton.setAttribute('class', 'thumbPlusDetailsButton show');
@@ -178,8 +178,8 @@ function CheckIBE(timeout) {
             }
         }
 
-        const observer = new MutationObserver(callback);
-        observer.observe(targetNode, config);
+        const thumbObserver = new MutationObserver(thumbCallback);
+        thumbObserver.observe(thumbNode, thumbObConfig);
     }
 
     function textButton() {
