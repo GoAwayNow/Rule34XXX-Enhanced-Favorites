@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Rule34.XXX Enhanced Favorites
 // @namespace    https://linktr.ee/GanbatGAN
-// @version      20221013162505
+// @version      20221223221453
 // @description  Improves the favorites system on Rule34.XXX.
 // @author       Ganbat
 // @match        https://rule34.xxx/index.php?page=post&s=list&tags=*
@@ -69,6 +69,7 @@ function CheckIBE(timeout) {
     const pageS = document.location.search.split('s=')[1].split('&')[0];
     let favsArray = await GM_getValue ( 'favs', [] );
     let verboseOutput = await GM_getValue ( 'verboseOutput', false );
+    let noticeTimer
 
 
     // Return true if favorite id is in favorites array
@@ -105,6 +106,7 @@ function CheckIBE(timeout) {
                 }
                 remFavList(id);
                 notice("Post removed from favorites");
+                hideNotice();
                 break;
             case 403:
                 alert(`403 Forbidden recieved when attempting to remove favorite.\r\n
@@ -136,6 +138,7 @@ function CheckIBE(timeout) {
             addFavList(postID);
             post_vote(postID, 'up');
             addFav(postID);
+            hideNotice();
             tpFavButton.setAttribute('style', 'display: none;');
             setTimeout(() => {
                 tpPreviewCont.style.boxShadow = '0px 0px 5px 2px gold';
@@ -201,6 +204,7 @@ function CheckIBE(timeout) {
                 addFavList(postID);
                 post_vote(postID, 'up');
                 addFav(postID);
+                hideNotice();
                 textFavBtn.setAttribute("style", "display: none;");
                 setTimeout(() => {
                     textRemBtn.setAttribute("style", "display: inline-block;");
@@ -331,8 +335,17 @@ function CheckIBE(timeout) {
             }
             if (addedFavs > 0) {
                 notice(`Added ${addedFavs} of ${thumbs.length} favorites`)
+                hideNotice();
             }
         }
+    }
+
+    function hideNotice() {
+        const noticeEle = document.getElementById("notice");
+        clearTimeout(noticeTimer)
+        noticeTimer = setTimeout(() => {
+            noticeEle.style.display = 'none'
+        }, 10000)
     }
 
     function initialize() {
