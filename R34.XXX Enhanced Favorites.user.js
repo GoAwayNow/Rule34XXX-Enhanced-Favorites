@@ -336,6 +336,16 @@ function CheckIBE(timeout) {
     }
 
     function initialize() {
+        GM_addStyle ( `
+            div#notice {
+                position: fixed;
+                background: #93c393;
+                top: 0px;
+                left: 0px;
+                padding: 12px;
+                z-index: 100;
+            }
+        ` );
         if (!loggedIn) {
             return;
         }
