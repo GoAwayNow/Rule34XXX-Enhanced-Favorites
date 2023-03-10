@@ -22,7 +22,5 @@ In order for the script to recognize existing favorites, the local favorites lis
 
 ## Known Issues
 
-* If used while browsing multiple tabs, local favorites may be lost. Favorites stored by the site will not be, and can be added to local storage by browsing your favorites page.
-    * Workaround: Refresh pages before favoriting anything when using multiple tabs.
 * If using Image Board Enhancer with enhanced thumbnails but without right-click details, the favorite button does not appear.
     * Workaround: Enable right-click details or disable enhanced thumbnails.

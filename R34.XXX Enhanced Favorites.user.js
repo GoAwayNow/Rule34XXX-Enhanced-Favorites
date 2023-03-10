@@ -70,6 +70,7 @@ function CheckIBE(timeout) {
     let favsArray = await GM_getValue ( 'favs', [] );
     let verboseOutput = await GM_getValue ( 'verboseOutput', false );
     let noticeTimer
+    const noticeNode = document.getElementById("notice");
 
 
     // Return true if favorite id is in favorites array
@@ -198,7 +199,7 @@ function CheckIBE(timeout) {
 
             let textFavBtn = document.createElement('b');
             textFavBtn.setAttribute('class', 'galFavBtn');
-            textFavBtn.setAttribute("style", "display: none;"); 
+            textFavBtn.setAttribute("style", "display: none;");
             textFavBtn.innerHTML = 'Add to Favorites';
             textFavBtn.addEventListener('click', function(){
                 addFavList(postID);
@@ -213,7 +214,7 @@ function CheckIBE(timeout) {
 
             let textRemBtn = document.createElement('b');
             textRemBtn.setAttribute('class', 'galFavBtn');
-            textRemBtn.setAttribute("style", "display: none;"); 
+            textRemBtn.setAttribute("style", "display: none;");
             textRemBtn.innerHTML = 'Remove Favorite';
             textRemBtn.addEventListener('click', async () => {
                 textRemBtn.setAttribute("style", "display: none;");
@@ -265,7 +266,7 @@ function CheckIBE(timeout) {
                 }, 300);
             });
         }
-        
+
         addFavLink.addEventListener('click', function(){
             addFavList(postID);
             addFavLink.parentElement.style.display = 'none';
@@ -295,7 +296,7 @@ function CheckIBE(timeout) {
                     if (IBEControls) { IBEControls.setAttribute('class', 'show-like show-unfavorite'); }
             }
         });
-        
+
         remFavLI.style.display = 'none';
 
         addFavLink.parentElement.parentElement.appendChild(remFavLI);
@@ -341,11 +342,19 @@ function CheckIBE(timeout) {
     }
 
     function hideNotice() {
-        const noticeEle = document.getElementById("notice");
         clearTimeout(noticeTimer)
         noticeTimer = setTimeout(() => {
-            noticeEle.style.display = 'none'
+            noticeNode.style.display = 'none'
         }, 10000)
+    }
+
+    function initGlobal() {
+        document.addEventListener("visibilitychange", async () => {
+            if (!document.hidden) {
+                if (verboseOutput) console.log('Refresh favsArray');
+                favsArray = await GM_getValue ( 'favs', [] );
+            }
+        });
     }
 
     function initialize() {
@@ -362,6 +371,7 @@ function CheckIBE(timeout) {
         if (!loggedIn) {
             return;
         }
+        initGlobal();
         switch (page){
             case 'post':
                 if (pageS == 'list') {
