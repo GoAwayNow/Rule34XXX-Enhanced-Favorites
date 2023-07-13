@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Rule34.XXX Enhanced Favorites
 // @namespace    https://linktr.ee/GanbatGAN
-// @version      20221223222316
+// @version      20230712225950
 // @description  Improves the favorites system on Rule34.XXX.
 // @author       Ganbat
 // @match        https://rule34.xxx/index.php?page=post&s=list&tags=*
@@ -167,7 +167,7 @@ function CheckIBE(timeout) {
         const thumbObConfig = { attributeFilter: [ 'href' ] };
 
         const thumbCallback = function(mutationsList, observer) {
-            postID = String(thumbNode.getAttribute('href')).replace(/index\.php.+id=/, '');
+            postID = String(thumbNode.getAttribute('href')).replace(/\/?index\.php.+id=/, '');
             if (isFav(postID)) {
                 tpFavButton.setAttribute('style', 'display: none;');
                 tpRemButton.setAttribute('class', 'thumbPlusDetailsButton show');
@@ -369,6 +369,8 @@ function CheckIBE(timeout) {
             }
         ` );
         if (!loggedIn) {
+            notice(`You are not currently logged in.`)
+            hideNotice();
             return;
         }
         initGlobal();
