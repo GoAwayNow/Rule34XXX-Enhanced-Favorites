@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Rule34.XXX Enhanced Favorites
 // @namespace    https://linktr.ee/GanbatGAN
-// @version      20230712225950
+// @version      20250314010005
 // @description  Improves the favorites system on Rule34.XXX.
 // @author       Ganbat
 // @match        https://rule34.xxx/index.php?page=post&s=list&tags=*
@@ -167,7 +167,7 @@ function CheckIBE(timeout) {
         const thumbObConfig = { attributeFilter: [ 'href' ] };
 
         const thumbCallback = function(mutationsList, observer) {
-            postID = String(thumbNode.getAttribute('href')).replace(/\/?index\.php.+id=/, '');
+            postID = String(thumbNode.getAttribute('href')).match(/id=(\d+).*/)[1];
             if (isFav(postID)) {
                 tpFavButton.setAttribute('style', 'display: none;');
                 tpRemButton.setAttribute('class', 'thumbPlusDetailsButton show');
@@ -242,7 +242,7 @@ function CheckIBE(timeout) {
     }
 
     async function initPostViewPage() {
-        const postID = window.location.href.match(/id=(\d+)/)[1];
+        const postID = window.location.href.match(/id=(\d+).*/)[1];
         const addFavLink = document.querySelector(`div.sidebar > div.link-list > ul > li > a[onclick*='addFav']`);
         if (verboseOutput) console.log(addFavLink);
         const remFavLink = document.createElement('a');
